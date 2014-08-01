@@ -1,0 +1,9 @@
+<plugin name=\"CodePaster\" version=\"0.0.1\" compatVersion=\"0.0.1\">
+    <vendor>Podshiblov</vendor>
+    <copyright>(C) Podshiblov</copyright>
+    <license>-</license>
+    <description>-</description>
+    <url>-</url>
+    $$dependencyList
+</plugin>
+
