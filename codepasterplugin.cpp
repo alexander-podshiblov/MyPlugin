@@ -40,19 +40,17 @@ bool CodePasterPlugin::initialize(const QStringList &arguments, QString *errorSt
     Q_UNUSED(arguments)
     Q_UNUSED(errorString)
 
-    QAction *action = new QAction(tr("CodePaster action"), this);
+    QAction *action = new QAction(tr("ClassDiagram action"), this);
     Core::Command *cmd = Core::ActionManager::registerAction(action, Constants::ACTION_ID,
                                                              Core::Context(Core::Constants::C_GLOBAL));
     cmd->setDefaultKeySequence(QKeySequence(tr("Ctrl+Alt+A")));
     connect(action, SIGNAL(triggered()), this, SLOT(triggerAction()));
 
-    Core::ActionContainer *menu = Core::ActionManager::createMenu(Constants::MENU_ID);
-    menu->menu()->setTitle(tr("CodePaster"));
-    menu->addAction(cmd);
-    Core::ActionManager::actionContainer(Core::Constants::M_TOOLS)->addMenu(menu);
 
-    settingsPage = new SettingsPage(this);
+    settingsPage = new SettingsPage(this, &snippets);
     addAutoReleasedObject(settingsPage);
+
+
 
 
     return true;

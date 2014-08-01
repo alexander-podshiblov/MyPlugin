@@ -4,13 +4,15 @@ DEFINES += CODEPASTER_LIBRARY
 
 SOURCES += codepasterplugin.cpp \
     settingspage.cpp \
-    settingsdialog.cpp
+    settingsdialog.cpp \
+    snippet.cpp
 
 HEADERS += codepasterplugin.h \
         codepaster_global.h \
         codepasterconstants.h \
     settingspage.h \
-    settingsdialog.h
+    settingsdialog.h \
+    snippet.h
 
 # Qt Creator linking
 

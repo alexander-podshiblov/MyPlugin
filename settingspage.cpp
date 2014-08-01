@@ -1,7 +1,7 @@
 #include "settingspage.h"
 #include <QListWidget>
 
-SettingsPage::SettingsPage(QObject *parent) :
+SettingsPage::SettingsPage(QObject *parent, QList<Snippet *> *snippets) :
     Core::IOptionsPage(parent)
 {
     m_id = Core::Id("CodePasterSettings");
@@ -10,7 +10,7 @@ SettingsPage::SettingsPage(QObject *parent) :
     m_displayCategory = tr("CodePaster");
     m_categoryIcon = tr(":/todo");
 
-    dialog = new SettingsDialog();
+    dialog = new SettingsDialog(0, snippets);
 }
 
 SettingsPage::~SettingsPage()

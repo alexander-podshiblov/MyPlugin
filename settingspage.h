@@ -11,7 +11,7 @@ class SettingsPage : public Core::IOptionsPage
     Q_OBJECT
 
 public:
-    SettingsPage(QObject *parent = 0);
+    SettingsPage(QObject *parent, QList<Snippet*> *snippets);
     ~SettingsPage();
 /*
     Id id() const { return m_id; }

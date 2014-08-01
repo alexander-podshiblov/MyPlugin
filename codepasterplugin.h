@@ -6,6 +6,7 @@
 #include <extensionsystem/iplugin.h>
 
 #include "settingspage.h"
+#include "snippet.h"
 
 namespace CodePaster {
 namespace Internal {
@@ -28,6 +29,7 @@ private slots:
 
 private:
     SettingsPage *settingsPage;
+    QList<Snippet*> snippets;
 };
 
 } // namespace Internal

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QListWidget>
+#include <snippet.h>
 
 namespace Ui {
 class SettingsDialog;
@@ -13,17 +14,22 @@ class SettingsDialog : public QWidget
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(QWidget *parent = 0);
+    explicit SettingsDialog(QWidget *parent, QList<Snippet*> *s);
     ~SettingsDialog();
 
 public slots:
     void addSnippet();
     void delSnippet();
     void editName(QListWidgetItem *item);
+    void addKeyToSnippet();
+    void addCodeToSnippet();
+    void rowChanged(int row);
 
 
 private:
     Ui::SettingsDialog *ui;
+    QList<Snippet*> *snippets;
+
 };
 
 #endif // SETTINGSDIALOG_H
