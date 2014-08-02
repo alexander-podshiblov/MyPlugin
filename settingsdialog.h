@@ -14,7 +14,7 @@ class SettingsDialog : public QWidget
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(QWidget *parent, QList<Snippet*> *s);
+    explicit SettingsDialog(QWidget *parent, QList<Snippet> *s);
     ~SettingsDialog();
 
 public slots:
@@ -28,7 +28,10 @@ public slots:
 
 private:
     Ui::SettingsDialog *ui;
-    QList<Snippet*> *snippets;
+    QList<Snippet> *snippets;
+
+signals:
+    void settingsChanged();
 
 };
 

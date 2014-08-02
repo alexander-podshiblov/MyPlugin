@@ -14,18 +14,32 @@
 #include <QMenu>
 
 #include <QtPlugin>
+#include <QMetaType>
 
 using namespace CodePaster::Internal;
 
 CodePasterPlugin::CodePasterPlugin()
 {
     // Create your members
+    qRegisterMetaTypeStreamOperators<Snippet>("Snippet");
+    qRegisterMetaTypeStreamOperators<SnippetList>("SnippetList");
+    readSettings();
 }
 
 CodePasterPlugin::~CodePasterPlugin()
 {
     // Unregister objects from the plugin manager's object pool
     // Delete members
+}
+
+void CodePasterPlugin::readSettings()
+{
+    QSettings *settings = Core::ICore::instance()->settings();
+    settings->beginGroup(tr("CodePasterPlugin"));
+    snippets = settings->value(tr("Snippets")).value<SnippetList>();
+
+//    /keywords = settings->value("keywords", qVariantFromValue(defaultKeywords)).value<KeywordsList>();
+    settings->endGroup();
 }
 
 bool CodePasterPlugin::initialize(const QStringList &arguments, QString *errorString)
@@ -48,6 +62,7 @@ bool CodePasterPlugin::initialize(const QStringList &arguments, QString *errorSt
 
 
     settingsPage = new SettingsPage(this, &snippets);
+    connect(settingsPage, SIGNAL(needToReadSettings()), this, SLOT(readSettings()));
     addAutoReleasedObject(settingsPage);
 
 

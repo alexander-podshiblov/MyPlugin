@@ -3,14 +3,23 @@
 
 #include <QMessageBox>
 #include <coreplugin/icore.h>
+#include <QList>
 
-SettingsDialog::SettingsDialog(QWidget *parent, QList<Snippet *> *s) :
+SettingsDialog::SettingsDialog(QWidget *parent, QList<Snippet> *s) :
     QWidget(parent),
     ui(new Ui::SettingsDialog)
 {
     ui->setupUi(this);
 
     snippets = s;
+
+    for (int i = 0; i < snippets->size(); i++)
+    {
+        QListWidgetItem *item = new QListWidgetItem();
+        item->setFlags(item->flags() | Qt::ItemIsEditable);
+        item->setText(snippets->at(i).getName());
+        ui->listWidget->addItem(item);
+    }
 
     connect(ui->addButton, SIGNAL(clicked()), this, SLOT(addSnippet()));
     connect(ui->deleteButton, SIGNAL(clicked()), this, SLOT(delSnippet()));
@@ -36,46 +45,62 @@ void SettingsDialog::addSnippet()
     ui->listWidget->editItem(item);
 
     Snippet *s = new Snippet;
-    snippets->insert(snippets->size(), s);
+    snippets->insert(snippets->size(), *s);
+
+    emit settingsChanged();
 }
 
 void SettingsDialog::delSnippet()
 {
     int row = ui->listWidget->currentRow();
-    Snippet *temp = snippets->at(row);
-    snippets->removeAt(row);
-    delete temp;
+    if(row < 0)
+        return;
+
     delete ui->listWidget->takeItem(row);
+    snippets->removeAt(row);
 
-
-    ui->textEdit->clear();
-
-    for(int i = 0; i < snippets->size(); i++)
-    {
-        ui->textEdit->insertPlainText(tr("<") + snippets->at(i)->getName() + tr(">") + tr("\n"));
-    }
+    emit settingsChanged();
 }
 
 void SettingsDialog::editName(QListWidgetItem *item)
 {
     ui->listWidget->setCurrentItem(item);
-    snippets->at(ui->listWidget->currentRow())->setName(item->text());
+    (*snippets)[ui->listWidget->currentRow()].setName(item->text());
+
+    emit settingsChanged();
 }
+
 
 void SettingsDialog::addKeyToSnippet()
 {
-    snippets->at(ui->listWidget->currentRow())->setKeySequence(ui->keySequenceEdit->keySequence());
+    if (snippets->size() == 0)
+        return;
+    (*snippets)[ui->listWidget->currentRow()].setKeySequence(ui->keySequenceEdit->keySequence());
+
+    emit settingsChanged();
 }
 
 void SettingsDialog::rowChanged(int row)
 {
-    ui->keySequenceEdit->setKeySequence(snippets->at(row)->getKeySequence());
-    ui->textEdit->setText(snippets->at(row)->getCode());
+    if(row < 0)
+    {
+        ui->keySequenceEdit->clear();
+        ui->textEdit->clear();
+    }
+    else
+    {
+        ui->keySequenceEdit->setKeySequence(snippets->at(row).getKeySequence());
+        ui->textEdit->setText(snippets->at(row).getCode());
+    }
 }
 
 void SettingsDialog::addCodeToSnippet()
 {
-    snippets->at(ui->listWidget->currentRow())->setCode(ui->textEdit->toPlainText());
+    if (snippets->size() == 0 || ui->listWidget->currentRow() == -1)
+        return;
+    (*snippets)[ui->listWidget->currentRow()].setCode(ui->textEdit->toPlainText());
+
+    settingsChanged();
 }
 
 

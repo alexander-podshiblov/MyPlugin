@@ -26,10 +26,11 @@ public:
 
 private slots:
     void triggerAction();
+    void readSettings();
 
 private:
     SettingsPage *settingsPage;
-    QList<Snippet*> snippets;
+    QList<Snippet> snippets;
 };
 
 } // namespace Internal

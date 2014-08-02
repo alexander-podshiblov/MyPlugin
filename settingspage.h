@@ -11,7 +11,7 @@ class SettingsPage : public Core::IOptionsPage
     Q_OBJECT
 
 public:
-    SettingsPage(QObject *parent, QList<Snippet*> *snippets);
+    SettingsPage(QObject *parent, QList<Snippet> *s);
     ~SettingsPage();
 /*
     Id id() const { return m_id; }
@@ -25,6 +25,9 @@ public:
     QWidget *widget();
     void apply();
     void finish();
+
+public slots:
+    void settingsChanded();
 
 protected:
 /*
@@ -42,6 +45,11 @@ protected:
 */
 private:
     SettingsDialog *dialog;
+    bool settingsStatus;
+    QList<Snippet> *snippets;
+
+signals:
+    void needToReadSettings();
 
 };
 
