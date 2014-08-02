@@ -8,6 +8,11 @@
 #include "settingspage.h"
 #include "snippet.h"
 
+#include <extensionsystem/pluginmanager.h>
+#include <coreplugin/editormanager/ieditor.h>
+#include <coreplugin/editormanager/editormanager.h>
+#include "sniffer.h"
+
 namespace CodePaster {
 namespace Internal {
 
@@ -27,10 +32,15 @@ public:
 private slots:
     void triggerAction();
     void readSettings();
+    void editorChanged();
+    void printSnippet(int i);
 
 private:
     SettingsPage *settingsPage;
     QList<Snippet> snippets;
+    ExtensionSystem::PluginManager *pm;
+    Sniffer *sniffer;
+
 };
 
 } // namespace Internal

@@ -5,14 +5,16 @@ DEFINES += CODEPASTER_LIBRARY
 SOURCES += codepasterplugin.cpp \
     settingspage.cpp \
     settingsdialog.cpp \
-    snippet.cpp
+    snippet.cpp \
+    sniffer.cpp
 
 HEADERS += codepasterplugin.h \
         codepaster_global.h \
         codepasterconstants.h \
     settingspage.h \
     settingsdialog.h \
-    snippet.h
+    snippet.h \
+    sniffer.h
 
 # Qt Creator linking
 
@@ -43,7 +45,8 @@ QTC_LIB_DEPENDS += \
     # nothing here at this time
 
 QTC_PLUGIN_DEPENDS += \
-    coreplugin
+    coreplugin \
+    texteditor
 
 QTC_PLUGIN_RECOMMENDS += \
     # optional plugin dependencies. nothing here at this time

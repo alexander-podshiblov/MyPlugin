@@ -10,7 +10,7 @@ SettingsPage::SettingsPage(QObject *parent, QList<Snippet> *s) :
     m_category = Core::Id("CodePaster");
     m_displayName = tr("Code snippets");
     m_displayCategory = tr("CodePaster");
-    m_categoryIcon = tr("");
+    m_categoryIcon = tr(":/ico");
     snippets = s;
 
 
