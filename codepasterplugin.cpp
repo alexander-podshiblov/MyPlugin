@@ -128,7 +128,7 @@ void CodePasterPlugin::triggerAction()
         listWidget->addItem(objInfo);
     }
     listWidget->show();
-/*
+
 
 
     if (editor)
