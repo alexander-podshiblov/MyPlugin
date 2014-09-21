@@ -43,10 +43,8 @@ bool Sniffer::eventFilter(QObject *obj, QEvent *event)
                     emit needPrint(i);
                     return true;
                 }
-                return QObject::eventFilter(obj, event);
             }
-
-
+            return QObject::eventFilter(obj, event);
         }
         else
         {
@@ -57,5 +55,4 @@ bool Sniffer::eventFilter(QObject *obj, QEvent *event)
     {
         return QObject::eventFilter(obj, event);
     }
-    return QObject::eventFilter(obj, event);
 }

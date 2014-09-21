@@ -32,7 +32,6 @@ CodePasterPlugin::CodePasterPlugin()
     sniffer = new Sniffer(Core::EditorManager::instance(), &snippets);
     connect(sniffer, SIGNAL(needPrint(int)), this, SLOT(printSnippet(int)));
 
-
 }
 
 CodePasterPlugin::~CodePasterPlugin()
